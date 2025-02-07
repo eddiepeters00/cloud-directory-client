@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import type { Document } from './type';
+import type { Document, FileType } from './type';
 defineProps<{
   document: Document;
 }>();
 
-const isFile = (doc: Document) => doc.mimeType !== "";
+//Helper function to check if the document is a File
+const isFile = (document: Document): document is FileType => {
+    return (document as FileType).mimeType !== undefined;
+};
 </script>
 
 <template>
