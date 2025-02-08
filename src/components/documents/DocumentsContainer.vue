@@ -5,8 +5,6 @@ import { mockDocuments } from "./mockupDocumentData";
 import { onMounted, ref } from "vue";
 import axios from "axios";
 
-// const documents = ref<Document[]>(mockDocuments); //Temporary mockdata
-
 const documents = ref([] as Document[]);
 const fetchingDocuments = ref(false);
 
@@ -39,6 +37,14 @@ async function fetchUserDocuments() {
   console.log(documents.value);
 }
 
+function openDocument(){
+  //If file
+  //Open file
+
+  //If folder
+  //Navigate to folder
+}
+
 onMounted(async () => {
   // await fetchUserDocuments()
   documents.value = mockDocuments;
@@ -47,11 +53,13 @@ onMounted(async () => {
 
 <template>
   <section class="container">
-    <ul class="document-list">
-      <li v-for="document in documents" :key="document.id">
-        <DocumentItem :document="document" />
-      </li>
-    </ul>
+    <div>
+      <ul class="document-list">
+        <li v-for="document in documents" :key="document.id" @click="openDocument">
+          <DocumentItem :document="document" />
+        </li>
+      </ul>
+    </div>
     <button role="button" class="load-btn" @click="loadMoreDocuments">
       {{ fetchingDocuments ? "..." : "Load more" }}
     </button>
@@ -73,7 +81,8 @@ onMounted(async () => {
 
 /* Button */
 .load-btn {
-  align-items: center;
+  display: flex;
+  justify-self: center;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
@@ -81,23 +90,19 @@ onMounted(async () => {
   box-sizing: border-box;
   color: rgba(0, 0, 0, 0.85);
   cursor: pointer;
-  display: inline-flex;
   font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 600;
-  justify-content: center;
   line-height: 1.25;
   margin: 0;
   min-height: 3rem;
   padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
-  position: relative;
   text-decoration: none;
   transition: all 250ms;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
-  width: auto;
 }
 
 .load-btn:hover,
